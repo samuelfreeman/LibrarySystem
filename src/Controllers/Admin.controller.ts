@@ -1,8 +1,8 @@
 import { Request, Response, Errback } from "express";
 
 import ExpressRes from "@server/Utils/Res";
-import { loginAdminInput, RegisterAdminInput } from "@server/validators/admin.validator";
-import { login, registerAdmin } from "@server/services/Admin.service";
+import { loginAdminInput, OtpInput, RegisterAdminInput } from "@server/validators/admin.validator";
+import { login, registerAdmin, verifyAdminOtp } from "@server/services/Admin.service";
 import { signToken } from "@server/Utils/jwt";
 import { otpEmail, sendMail } from "@server/Utils/mail";
 
@@ -35,6 +35,22 @@ const loginAdmin = async (req: Request, res: Response): Promise<void> => {
     }
 }
 
+const verifyOtp = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const input = req.body as OtpInput;
+        const admin = await verifyAdminOtp(input.otp, input.username)
+        const token = signToken({
+            id: admin.id,
+            email: admin.email,
+            username: admin.username,
+        });
+        ExpressRes.success(res, "Admin otp verified  successfully", { ...admin, token });
+    } catch (error: any) {
+        ExpressRes.error(res, "Failed to  verify otp", error.message);
+    }
+}
 
 
-export { register, loginAdmin }
+
+
+export { register, loginAdmin,verifyOtp }

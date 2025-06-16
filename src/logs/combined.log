@@ -38,3 +38,14 @@
 [2025-06-15T23:59:22.667Z] info:  Admin otp sent successfully
 [2025-06-15T23:59:48.144Z] info: Server is running on port 3000
 [2025-06-16T00:00:06.709Z] info: Server is running on port 3000
+[2025-06-16T00:09:51.281Z] info: Server is running on port 3000
+[2025-06-16T00:11:27.669Z] info: Server is running on port 3000
+[2025-06-16T00:12:25.072Z] error:  Failed to  verify otp
+[2025-06-16T00:13:21.532Z] info:  Admin otp sent successfully
+[2025-06-16T00:13:39.848Z] error:  Failed to  verify otp
+[2025-06-16T00:14:07.986Z] info: Server is running on port 3000
+[2025-06-16T00:14:13.827Z] error:  Failed to  verify otp
+[2025-06-16T00:14:49.868Z] info:  Admin otp sent successfully
+[2025-06-16T00:16:11.995Z] info: Server is running on port 3000
+[2025-06-16T00:16:19.308Z] info:  Admin otp sent successfully
+[2025-06-16T00:16:37.118Z] info:  Admin otp verified  successfully

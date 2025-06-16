@@ -65,8 +65,24 @@ const login = async (input: loginAdmin): Promise<SavedAdmin> => {
         throw new Error("Failed to update OTP")
     }
 
+    return updateOTP as SavedAdmin;
+};
+
+const verifyAdminOtp = async (otp: number, username: string): Promise<SavedAdmin> => {
+    const admin = await prisma.admin.findUnique({
+        where: {
+            username: username,
+        },
+    });
+    if (!admin) {
+        throw new Error("Admin not found");
+    }
+     console.log(  admin.otp , otp)
+    if (admin.otp !== otp) {
+        throw new Error("Invalid OTP");
+    }
     return admin as SavedAdmin;
 };
 
-export { registerAdmin, login };
+export { registerAdmin, login , verifyAdminOtp};
 

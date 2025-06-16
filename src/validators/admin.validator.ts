@@ -18,3 +18,9 @@ export const loginAdminSchema = z.object({
 });
 
 export type loginAdminInput = z.infer<typeof loginAdminSchema>;
+
+export const OtpSchema = z.object({
+    otp: z.number().min(6),
+    username: z.string().min(3)
+})
+export type OtpInput = z.infer<typeof OtpSchema>;
