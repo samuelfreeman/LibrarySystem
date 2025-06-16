@@ -37,7 +37,6 @@ const registerAdmin = async (input: RegisterAdminInput): Promise<SavedAdmin> => 
 };
 
 const login = async (input: loginAdmin): Promise<SavedAdmin> => {
-    const otp = generateOTP()
 
     const admin = await prisma.admin.findUnique({
         where: {
@@ -52,9 +51,22 @@ const login = async (input: loginAdmin): Promise<SavedAdmin> => {
     if (!password) {
         throw new Error("Invalid password")
     }
-   const updateOTP =  await prisma.admin.update({
+
+    return admin as SavedAdmin;
+};
+
+const sendOtp = async (username: string) => {
+    const otp = generateOTP()
+
+    const admin = await prisma.admin.findUnique({
         where: {
-            id: admin.id
+            username: username,
+        },
+    })
+
+    const updateOTP = await prisma.admin.update({
+        where: {
+            id: admin?.id
         },
         data: {
             otp: otp
@@ -64,9 +76,8 @@ const login = async (input: loginAdmin): Promise<SavedAdmin> => {
         throw new Error("Failed to update OTP")
     }
 
-    return updateOTP as SavedAdmin;
-};
-
+    return updateOTP
+}
 const verifyAdminOtp = async (otp: number, username: string): Promise<SavedAdmin> => {
     const admin = await prisma.admin.findUnique({
         where: {
@@ -76,12 +87,30 @@ const verifyAdminOtp = async (otp: number, username: string): Promise<SavedAdmin
     if (!admin) {
         throw new Error("Admin not found");
     }
-     console.log(  admin.otp , otp)
     if (admin.otp !== otp) {
         throw new Error("Invalid OTP");
     }
     return admin as SavedAdmin;
 };
 
-export { registerAdmin, login , verifyAdminOtp};
+const updatePassword = async (username: string, password: string) => {
+    const admin = await prisma.admin.findUnique({
+        where: {
+            username
+        }
+    })
+
+    if (!admin) throw new Error("Admin not found")
+    password = await hashPassword(password)
+    const updatedPassword = await prisma.admin.update({
+        where: {
+            username
+        },
+        data: {
+            password
+        }
+    })
+    return updatedPassword
+}
+export { registerAdmin, login, verifyAdminOtp, sendOtp, updatePassword };
 
