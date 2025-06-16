@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { logger } from "@server/Utils/logger";
+import { logger, otpLogger } from "@server/Utils/logger";
 interface IResponse {
   success: boolean;
   message?: string;
@@ -10,6 +10,15 @@ interface IResponse {
 export default class ExpressRes {
   static success(res: Response, message = "Success", data: any = null, statusCode = 200) {
     logger.info(` ${message}`, { statusCode, data });
+    return res.status(statusCode).json({
+      success: true,
+      message,
+      data,
+    });
+  }
+
+    static Otpsuccess(res: Response, message = "Success", data: any = null, statusCode = 200) {
+    otpLogger.info(` ${message}`, { statusCode, data });
     return res.status(statusCode).json({
       success: true,
       message,

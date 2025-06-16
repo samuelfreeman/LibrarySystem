@@ -1,0 +1,17 @@
+
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: library-system
+    image: my-library-app
+    restart: always
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    command: sh -c "npx prisma generate && node dist/index.js"

@@ -26,8 +26,8 @@ const loginAdmin = async (req: Request, res: Response): Promise<void> => {
     try {
         const input = req.body as loginAdminInput;
         const admin = await login(input)
-         await  sendMail(admin.email, "Login Notification", otpEmail(admin.otp, admin.username))
-      
+        await sendMail(admin.email, "Login Notification", otpEmail(admin.otp, admin.username))
+
         ExpressRes.success(res, "Admin otp sent successfully", { ...admin });
     } catch (error: any) {
         ExpressRes.error(res, "Failed to login admin", error.message);
@@ -44,7 +44,7 @@ const verifyOtp = async (req: Request, res: Response): Promise<void> => {
             email: admin.email,
             username: admin.username,
         });
-        ExpressRes.success(res, "Admin otp verified  successfully", { ...admin, token });
+        ExpressRes.Otpsuccess(res, "Admin otp verified  successfully", { ...admin, token });
     } catch (error: any) {
         ExpressRes.error(res, "Failed to  verify otp", error.message);
     }
@@ -53,4 +53,4 @@ const verifyOtp = async (req: Request, res: Response): Promise<void> => {
 
 
 
-export { register, loginAdmin,verifyOtp }
+export { register, loginAdmin, verifyOtp }

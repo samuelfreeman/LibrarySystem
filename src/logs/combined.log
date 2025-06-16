@@ -49,3 +49,13 @@
 [2025-06-16T00:16:11.995Z] info: Server is running on port 3000
 [2025-06-16T00:16:19.308Z] info:  Admin otp sent successfully
 [2025-06-16T00:16:37.118Z] info:  Admin otp verified  successfully
+[2025-06-16T00:33:50.221Z] info: Server is running on port 3000
+[2025-06-16T00:34:46.131Z] error:  Failed to login admin
+[2025-06-16T00:35:23.296Z] info:  Admin otp sent successfully
+[32minfo[39m: Server is running on port 3000 {"timestamp":"2025-06-16T00:37:00.050Z"}
+[32minfo[39m:  Admin otp sent successfully {"data":{"contact":"568-651-0715","createdAt":"2025-06-15T23:05:38.652Z","email":"samuelmanueljnr@gmail.com","firstName":"Nicolas","id":"cmby9xcuz0000gaetm9rxxg6n","lastName":"Wilderman","otp":234786,"password":"$argon2id$v=19$m=65536,t=3,p=4$XGMUXDISYBe1F5iyLjABpg$zZE7B47togBiH6BYZ2OMDCemJE6rzey1QnyzHzpnJhw","updatedAt":"2025-06-16T00:37:03.788Z","username":"Cyrus_Carter"},"statusCode":200,"timestamp":"2025-06-16T00:37:07.379Z"}
+[32minfo[39m: Server is running on port 3000 {"timestamp":"2025-06-16T00:38:17.154Z"}
+[32minfo[39m: Server is running on port 3000 {"timestamp":"2025-06-16T00:38:43.073Z"}
+[2025-06-16T00:39:38.005Z] info: Server is running on port 3000
+[2025-06-16T00:39:46.679Z] info: Server is running on port 3000
+[2025-06-16T00:39:53.221Z] info:  Admin otp sent successfully

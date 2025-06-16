@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loginAdminSchema = exports.registerAdminSchema = void 0;
+exports.OtpSchema = exports.loginAdminSchema = exports.registerAdminSchema = void 0;
 // validators/adminSchema.ts
 const zod_1 = require("zod");
 exports.registerAdminSchema = zod_1.z.object({
@@ -14,4 +14,8 @@ exports.registerAdminSchema = zod_1.z.object({
 exports.loginAdminSchema = zod_1.z.object({
     username: zod_1.z.string().min(3),
     password: zod_1.z.string().min(6),
+});
+exports.OtpSchema = zod_1.z.object({
+    otp: zod_1.z.number().min(6),
+    username: zod_1.z.string().min(3)
 });

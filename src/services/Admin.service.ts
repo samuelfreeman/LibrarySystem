@@ -2,7 +2,6 @@ import { PrismaClient } from "@prisma/client";
 import { loginAdmin, SavedAdmin } from "@server/types/Admin";
 import { hashPassword, verifyPassword } from "@server/Utils/bcrypt";
 import { generateOTP } from "@server/Utils/generateOTP";
-import ExpressRes from "@server/Utils/Res";
 import { RegisterAdminInput } from "@server/validators/admin.validator";
 
 const prisma = new PrismaClient();

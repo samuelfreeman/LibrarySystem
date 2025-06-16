@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.login = exports.registerAdmin = void 0;
+exports.verifyAdminOtp = exports.login = exports.registerAdmin = void 0;
 const client_1 = require("@prisma/client");
-const bcrypt_1 = require("@server/Utils/bcrypt");
+const bcrypt_1 = require("../Utils/bcrypt");
+const generateOTP_1 = require("../Utils/generateOTP");
 const prisma = new client_1.PrismaClient();
 const registerAdmin = async (input) => {
     const hashedPassword = await (0, bcrypt_1.hashPassword)(input.password);
@@ -33,6 +34,7 @@ const registerAdmin = async (input) => {
 };
 exports.registerAdmin = registerAdmin;
 const login = async (input) => {
+    const otp = (0, generateOTP_1.generateOTP)();
     const admin = await prisma.admin.findUnique({
         where: {
             username: input.username,
@@ -45,6 +47,33 @@ const login = async (input) => {
     if (!password) {
         throw new Error("Invalid password");
     }
-    return admin;
+    const updateOTP = await prisma.admin.update({
+        where: {
+            id: admin.id
+        },
+        data: {
+            otp: otp
+        }
+    });
+    if (!updateOTP) {
+        throw new Error("Failed to update OTP");
+    }
+    return updateOTP;
 };
 exports.login = login;
+const verifyAdminOtp = async (otp, username) => {
+    const admin = await prisma.admin.findUnique({
+        where: {
+            username: username,
+        },
+    });
+    if (!admin) {
+        throw new Error("Admin not found");
+    }
+    console.log(admin.otp, otp);
+    if (admin.otp !== otp) {
+        throw new Error("Invalid OTP");
+    }
+    return admin;
+};
+exports.verifyAdminOtp = verifyAdminOtp;

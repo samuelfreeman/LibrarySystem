@@ -1,9 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const logger_1 = require("@server/Utils/logger");
+const logger_1 = require("../Utils/logger");
 class ExpressRes {
     static success(res, message = "Success", data = null, statusCode = 200) {
         logger_1.logger.info(` ${message}`, { statusCode, data });
+        return res.status(statusCode).json({
+            success: true,
+            message,
+            data,
+        });
+    }
+    static Otpsuccess(res, message = "Success", data = null, statusCode = 200) {
+        logger_1.otpLogger.info(` ${message}`, { statusCode, data });
         return res.status(statusCode).json({
             success: true,
             message,

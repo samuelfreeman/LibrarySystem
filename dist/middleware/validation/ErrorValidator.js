@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.validateError = void 0;
-const Res_1 = __importDefault(require("@server/Utils/Res"));
+const Res_1 = __importDefault(require("../../Utils/Res"));
 const validateError = (schema) => (req, res, next) => {
     const result = schema.safeParse(req.body);
     if (!result.success) {
