@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
-import { SavedAdmin } from "@server/types/Admin";
-import { hashPassword } from "@server/Utils/bcrypt";
+import { loginAdmin, SavedAdmin } from "@server/types/Admin";
+import { hashPassword, verifyPassword } from "@server/Utils/bcrypt";
+import { generateOTP } from "@server/Utils/generateOTP";
 import ExpressRes from "@server/Utils/Res";
 import { RegisterAdminInput } from "@server/validators/admin.validator";
 
@@ -36,6 +37,36 @@ const registerAdmin = async (input: RegisterAdminInput): Promise<SavedAdmin> => 
     return admin as SavedAdmin;
 };
 
+const login = async (input: loginAdmin): Promise<SavedAdmin> => {
+    const otp = generateOTP()
 
-export { registerAdmin };
+    const admin = await prisma.admin.findUnique({
+        where: {
+            username: input.username,
+        },
+    });
+    if (!admin) {
+        throw new Error("Admin not found");
+    }
+
+    const password = await verifyPassword(input.password, admin.password)
+    if (!password) {
+        throw new Error("Invalid password")
+    }
+   const updateOTP =  await prisma.admin.update({
+        where: {
+            id: admin.id
+        },
+        data: {
+            otp: otp
+        }
+    })
+    if (!updateOTP) {
+        throw new Error("Failed to update OTP")
+    }
+
+    return admin as SavedAdmin;
+};
+
+export { registerAdmin, login };
 

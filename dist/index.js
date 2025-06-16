@@ -15,7 +15,6 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const Res_1 = __importDefault(require("@server/Utils/Res"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
-app.set("trust proxy", true);
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use((0, cors_1.default)({
